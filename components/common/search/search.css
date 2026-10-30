@@ -243,8 +243,10 @@
 /* Forgejo's native query/mode/submit group (shared/search/combo_multi), opted in on its form. */
 .ui.form.theme-search-control > .ui.action.input {
   display: flex;
+  flex-wrap: wrap;
   align-items: stretch;
-  height: 32px;
+  min-height: 32px;
+  height: auto;
   min-width: 0;
   border: 1px solid var(--color-light-border);
   border-radius: var(--border-radius);
@@ -255,15 +257,19 @@
     outline-offset: -1px;
   }
   & > input[type="search"] {
-    min-width: 0;
+    /* Keep the static prompt usable; the mode and submit can move to the next line. */
+    box-sizing: border-box;
+    min-width: min(100%, calc(16ch + 24px));
     width: 0;
-    flex: 1 1 0;
-    height: 30px;
+    flex: 1 1 calc(16ch + 24px);
+    height: 31px;
+    margin-top: -1px;
     padding: 5px 12px;
     font-size: 14px;
     line-height: 20px;
     background: transparent;
     border: 0;
+    border-top: 1px solid var(--color-light-border);
     border-radius: inherit;
     box-shadow: none;
     outline: none;
@@ -271,10 +277,12 @@
   & > .ui.selection.dropdown,
   & > .ui.button {
     flex: 0 0 auto;
-    height: 30px;
-    min-height: 30px;
-    margin: 0;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 31px;
+    margin: -1px 0 0;
     border: 0;
+    border-top: 1px solid var(--color-light-border);
     border-left: 1px solid var(--color-light-border);
     border-radius: 0;
     background: transparent;
@@ -292,13 +300,20 @@
     display: flex;
     align-items: center;
     width: auto;
-    min-width: 88px;
+    min-width: min(88px, calc(100% - 32px));
+    max-width: calc(100% - 32px);
+    /* Reserve the submit's width so both controls wrap together, even with a long mode. */
+    margin-right: 32px;
+    margin-left: -1px;
     padding: 5px 28px 5px 8px;
     font-size: 12px;
     line-height: 20px;
+    white-space: normal;
     & > .text {
       margin: 0;
       line-height: 20px;
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
     & > .dropdown.icon {
       top: 50%;
@@ -321,6 +336,7 @@
     display: grid;
     place-items: center;
     width: 32px;
+    margin-left: -32px;
     padding: 0 !important;
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
     & > svg {

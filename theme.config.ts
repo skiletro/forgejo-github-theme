@@ -20,10 +20,18 @@
 import { defineThemeConfig } from "@lutinglt/gitea-github-theme/core";
 import styles from "@lutinglt/gitea-github-theme/styles";
 import themes from "@lutinglt/gitea-github-theme/themes";
+import warmVodkaStyles from "./styles/themes/warmVodka.ts";
 
 export default defineThemeConfig({
   globalStyles: styles,
   themeSeries: [
+    {
+      themeSeriesName: "warm-vodka",
+      styles: warmVodkaStyles,
+      themes: {
+        dark: { displayName: "Warm Vodka", theme: themes.warmVodka.dark },
+      },
+    },
     {
       themeSeriesName: "default",
       themes: {

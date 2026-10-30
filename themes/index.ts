@@ -44,6 +44,7 @@ import {
   githubTritanopiaDarkTheme,
   githubTritanopiaLightTheme,
 } from "./github";
+import { warmVodkaTheme } from "./warmVodka";
 
 export const giteaColor = {
   dark: giteaDarkColor,
@@ -91,5 +92,8 @@ export default {
     frappe: catppuccinFrappeTheme,
     macchiato: catppuccinMacchiatoTheme,
     mocha: catppuccinMochaTheme,
+  },
+  warmVodka: {
+    dark: warmVodkaTheme,
   },
 };

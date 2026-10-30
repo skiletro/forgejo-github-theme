@@ -39,6 +39,8 @@ const EXPECTED_THEME_FILES = [
   `${PREFIX}light.css`,
   `${PREFIX}soft-dark.css`,
   `${PREFIX}auto.css`,
+  // warm.vodka (dark only)
+  `${PREFIX}warm-vodka-dark.css`,
   // colorblind
   `${PREFIX}colorblind-dark.css`,
   `${PREFIX}colorblind-light.css`,

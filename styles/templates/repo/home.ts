@@ -280,7 +280,7 @@ const repositoryHome = css`
       width: auto;
     }
     .page-content.repository.file.list .repo-button-row .repo-find-file {
-      width: 87px;
+      width: auto;
       padding: 0 12px;
       background: ${themeVars.color.button};
       cursor: pointer;

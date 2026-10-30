@@ -19,7 +19,8 @@ bun release
 (
   cd dist
   tar -zcf theme-github-extras.tar.gz \
-    theme-github-pink-*.css theme-github-gitea-*.css theme-github-catppuccin-*.css
+    theme-github-pink-*.css theme-github-gitea-*.css theme-github-catppuccin-*.css \
+    theme-github-warm-vodka-dark.css
 )
 
 # Template assets must extract beside templates under the documented custom root.

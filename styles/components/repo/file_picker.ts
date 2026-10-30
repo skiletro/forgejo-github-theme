@@ -3,13 +3,19 @@ import { css, otherThemeVars, themeVars } from "@lutinglt/gitea-github-theme/cor
 export default css`
   .repo-file-picker {
     position: relative;
-    width: 130px;
-    flex-shrink: 1;
+    width: max-content;
+    flex-shrink: 0;
   }
   .repo-file-picker .repo-find-file {
     width: 100%;
     height: 32px;
     gap: 8px;
+  }
+  /* Size the prompt in its own font; the field adds its padding, icons and shortcut around it. */
+  .repo-file-picker .repo-find-file > input {
+    width: 10.5ch;
+    min-width: 10.5ch;
+    flex: 1 1 10.5ch;
   }
   .repo-file-picker .repo-find-file kbd {
     display: inline-flex;

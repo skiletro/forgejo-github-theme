@@ -432,6 +432,7 @@
 :is(.github-profile, .github-org) #repo-search-form {
   display: flex;
   flex: 1;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   min-width: 0;
@@ -439,7 +440,9 @@
 }
 
 :is(.github-profile, .github-org) #repo-search-form .profile-repo-query {
-  flex: 1;
+  /* Fit “Search starred repositories” plus the input padding and field borders before wrapping controls. */
+  flex: 1 1 calc(27ch + 26px);
+  font: 14px/20px var(--fonts-proportional);
 }
 
 :is(.github-profile, .github-org) .profile-repo-toolbar > .profile-new-repo.button {
@@ -461,10 +464,6 @@
 
   :is(.github-profile, .github-org) .profile-repo-toolbar > .profile-new-repo {
     order: -1;
-  }
-
-  :is(.github-profile, .github-org) #repo-search-form {
-    flex-wrap: wrap;
   }
 
   :is(.github-profile, .github-org) #repo-search-form .profile-repo-query {

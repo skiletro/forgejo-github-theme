@@ -14,6 +14,61 @@ A Forgejo theme that pursues GitHub style not only in colors but also in styling
 
 ![Dashboard](.github/assets/screenshots/dashboard.png)
 
+## warm.vodka dark variant
+
+The custom **Warm Vodka** variant brings warm near-black surfaces, muted text, coral accents, and system monospace fonts
+to the existing Forgejo GitHub layouts. It is dark-only: `theme-github-warm-vodka-dark.css`, selected as
+`github-warm-vodka-dark`. There is no warm.vodka light or automatic variant. Semantic status and diff colors remain
+distinct so success, warnings, failures, additions, and deletions retain their meaning. Forgejo brand marks are tinted
+off-white; repository and user avatars keep their original colors.
+
+File-finder prompts size from the active font rather than fixed pixel widths. Repository search and combined query/mode
+controls wrap when space is constrained, keeping their static labels readable with the monospace stack.
+
+The [warm.vodka website](https://warm.vodka/) and its [landing repository](https://github.com/warm-vodka/landing) are
+visual references only. This theme implementation is original; no code or assets are copied from the GPL-licensed
+landing page. Existing themes and templates are retained.
+
+### Build and install Warm Vodka locally
+
+With Bun 1.3.14 or newer, run these commands from this customized checkout (the upstream repository does not include
+this variant):
+
+```bash
+bun install
+bun bundle
+```
+
+The build emits `dist/theme-github-warm-vodka-dark.css` and assembles the existing templates and their required CSS and
+JavaScript in `dist/forgejo`. To retain the project's layouts, install that assembled tree together, not just the theme
+CSS. Set `FORGEJO_CUSTOM` below to your instance's custom/data root containing `conf/app.ini`, `templates`, and `public`
+(commonly `data/gitea` in the official container):
+
+```bash
+FORGEJO_CUSTOM=/path/to/forgejo-data
+mkdir -p "$FORGEJO_CUSTOM/templates" "$FORGEJO_CUSTOM/public"
+cp -R dist/forgejo/templates/. "$FORGEJO_CUSTOM/templates/"
+cp -R dist/forgejo/public/. "$FORGEJO_CUSTOM/public/"
+```
+
+Back up existing custom files first. Use templates only with the supported Forgejo release; see
+[Compatibility](#compatibility) and [Template File Installation](#template-file-installation-optional). This copies all
+existing theme CSS as well as the custom variant and retains the shared layout/assets. For packaged installation, the
+custom CSS is in `theme-github-extras.tar.gz`; pair it with `theme-github-templates.tar.gz` to retain those layouts.
+
+In `<forgejo-data>/conf/app.ini`, append `github-warm-vodka-dark` to your existing `[ui] THEMES` list rather than
+removing other entries. To make it the instance default, also set `DEFAULT_THEME`:
+
+```ini
+[ui]
+THEMES = gitea-auto, gitea-light, gitea-dark, github-auto, github-light, github-dark, github-soft-dark, github-warm-vodka-dark
+DEFAULT_THEME = github-warm-vodka-dark
+```
+
+Restart Forgejo and select **github-warm-vodka-dark** in your account's appearance settings. Omit the `DEFAULT_THEME`
+change if you want to keep your current instance default; existing users can keep their own selected theme. The
+[local preview](#local-forgejo-preview) also includes this choice while keeping `github-auto` as its default.
+
 ## Compatibility
 
 This project is a Forgejo-focused fork of [Gitea GitHub Theme](https://github.com/lutinglt/gitea-github-theme). It
@@ -51,8 +106,8 @@ Install the resulting files using your Forgejo data directory (commonly `data/gi
 1. Extract `theme-github-base.tar.gz`, then place the contained `*.css` files in `<forgejo-data>/public/assets/css`
    (create the directory if necessary). This archive contains the standard light, dark, auto, and soft-dark themes.
 2. Optionally extract `theme-github-accessibility.tar.gz` for colorblind and high-contrast themes, or
-   `theme-github-extras.tar.gz` for Pink, Gitea-compatible, and Catppuccin themes. Place their CSS files in the same
-   `<forgejo-data>/public/assets/css` directory.
+   `theme-github-extras.tar.gz` for Pink, Gitea-compatible, Catppuccin, and Warm Vodka themes. Place their CSS files in
+   the same `<forgejo-data>/public/assets/css` directory.
 3. Extract the optional `theme-github-templates.tar.gz` archive into `<forgejo-data>`. It includes the templates and
    their required JavaScript and page-specific CSS assets under `public/assets`.
 4. Modify `<forgejo-data>/conf/app.ini` and append the CSS filename without the `theme-` prefix to `THEMES` under the
