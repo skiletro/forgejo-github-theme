@@ -73,6 +73,34 @@ Restart Forgejo and select **github-warm-vodka-dark** in your account's appearan
 change if you want to keep your current instance default; existing users can keep their own selected theme. The
 [local preview](#local-forgejo-preview) also includes this choice while keeping `github-auto` as its default.
 
+### Build with Nix
+
+With Nix flakes enabled, build the complete Forgejo custom tree without installing Bun or npm on the host:
+
+```bash
+nix build
+# Equivalent named package:
+nix build .#forgejo-github-theme
+```
+
+The output contains `result/templates` and `result/public`, including
+`result/public/assets/css/theme-github-warm-vodka-dark.css`. Follow the installation and `[ui]` configuration above,
+replacing `dist/forgejo` with `result` in the copy commands. The package builds every existing theme and stamps the
+footer with its Nix package version.
+
+The flake exposes packages for `x86_64-linux`, `aarch64-linux`, and `aarch64-darwin`. From another flake, use
+`inputs.warm-vodka-forgejo-theme.packages.${pkgs.stdenv.hostPlatform.system}.default` instead of maintaining a separate
+package expression.
+
+Keep `flake.nix`, `flake.lock`, and `package-lock.json` in Git: Nix's Git source filtering omits untracked files.
+Before adding these new files to Git, use `nix build "path:$PWD"` to build the working tree.
+
+`flake.lock` pins nixpkgs; `package-lock.json` pins the npm dependencies used by `buildNpmPackage`. After changing
+`package.json`, regenerate the npm lock with `npm install --package-lock-only --ignore-scripts --legacy-peer-deps`,
+then run `prefetch-npm-deps package-lock.json` (available from nixpkgs) and update `npmDepsHash` in `flake.nix` with
+the printed hash. The build invokes TypeScript, Vite, and assembly through Bun directly, preserving the Bun build
+behavior despite Nix's patched Node shebangs.
+
 ## Compatibility
 
 This project is a Forgejo-focused fork of [Gitea GitHub Theme](https://github.com/lutinglt/gitea-github-theme). It

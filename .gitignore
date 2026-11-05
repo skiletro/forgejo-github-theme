@@ -2,9 +2,10 @@ dist
 node_modules
 bun.lock
 bun.lockb
-package-lock.json
 .env
 .VSCodeCounter
 /dev/.generated/
 
 /screenshots/reviews/
+/result
+/result-*
