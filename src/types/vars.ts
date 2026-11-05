@@ -60,6 +60,8 @@ const customVars = {
   branchMenuWidth: "branch-menu-width",
   cloneMenuWidth: "clone-menu-width",
   userMenuWidth: "user-menu-width",
+  ownerSwitcher: "owner-switcher",
+  footerCredit: "footer-credit",
   explore: { repolistColumns: "explore-repolist-columns", userlistColumns: "explore-userlist-columns" },
   userRepolistColumns: "user-repolist-columns",
   org: { repolistColumns: "org-repolist-columns", userlistColumns: "org-userlist-columns" },

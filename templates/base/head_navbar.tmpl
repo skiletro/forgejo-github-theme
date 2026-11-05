@@ -29,19 +29,22 @@
 				<a class="repository-navbar-owner" href="{{.Owner.HomeLink}}">
 					<span>{{.Owner.Name}}</span>
 				</a>
+				{{if $.IsSigned}}{{template "base/navbar_owner_switcher" dict "Owner" .Owner "Data" $}}{{end}}
 				<span class="repository-navbar-separator">/</span>
 				{{$repoIcon := "octicon-repo"}}{{if .IsPrivate}}{{$repoIcon = "octicon-lock"}}{{else if .IsFork}}{{$repoIcon = "octicon-repo-forked"}}{{else if .IsMirror}}{{$repoIcon = "octicon-mirror"}}{{end}}
 				<a class="repository-navbar-name" href="{{$.RepoLink}}">{{svg $repoIcon 16}}<span>{{.Name}}</span></a>
 				{{/* GitHub's repository switcher: the owner's repositories, loaded when the menu opens. */}}
 				<span class="repository-navbar-switcher">
-					{{template "components/common/dropdown/dropdown" dict "Kind" "actions" "Icon" "octicon-triangle-down" "IconOnly" true "Quiet" true "Small" true "Label" "Switch repository" "Title" "Switch repository" "Items" "base/navbar_repository_switcher" "Data" (dict "Context" ctx "Repository" .)}}
+					{{template "components/common/dropdown/dropdown" dict "Kind" "actions" "Icon" "octicon-triangle-down" "IconOnly" true "Quiet" true "Small" true "Label" (ctx.Locale.Tr "user.repositories") "Title" (ctx.Locale.Tr "user.repositories") "Items" "base/navbar_repository_switcher" "Data" (dict "Context" ctx "Repository" .)}}
 				</span>
 			</div>
 			{{end}}
 		{{else if $isOrganization}}
 			<a class="item navbar-context-title not-mobile" href="{{.Org.HomeLink}}">{{.Org.Name}}</a>
+			{{if .IsSigned}}{{template "base/navbar_owner_switcher" dict "Owner" .Org "Data" .}}{{end}}
 		{{else if $isUserProfile}}
 			<a class="item navbar-context-title not-mobile" href="{{.ContextUser.HomeLink}}">{{.ContextUser.Name}}</a>
+			{{if .IsSigned}}{{template "base/navbar_owner_switcher" dict "Owner" .ContextUser "Data" .}}{{end}}
 		{{else if and .IsSigned .HideNavbarLinks}}
 			{{/* No links */}}
 		{{else if .IsSigned}}
@@ -82,9 +85,11 @@
 	<!-- the full dropdown menus -->
 	<div class="navbar-right">
 		{{if not (and .IsSigned .HideNavbarLinks)}}
-			{{/* GitHub's search sits first on the right; here it searches repositories and "/" focuses it. */}}
+			{{/* GitHub's search sits first on the right; here it searches repositories and "/" focuses it. Signed in, focusing
+			it lists your repositories and organizations, as GitHub's jump-to does. */}}
 			<form class="navbar-search not-mobile" action="{{AppSubUrl}}/explore/repos" method="get" role="search">
 				{{template "components/common/search/search" dict "Kind" "icon" "Placeholder" (ctx.Locale.Tr "search.repo_kind") "Shortcut" "/" "Class" "navbar-search-field"}}
+				{{if .IsSigned}}{{template "components/dashboard/jump/jump" dict "UID" .SignedUser.ID}}{{end}}
 			</form>
 		{{end}}
 		{{if and .IsSigned .HideNavbarLinks}}
