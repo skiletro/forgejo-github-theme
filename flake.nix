@@ -7,16 +7,20 @@
     let
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
+      defaultColors = builtins.fromJSON (builtins.readFile ./themes/warmVodka.json);
     in
     {
       packages = forAllSystems (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          theme = pkgs.buildNpmPackage {
+          theme = pkgs.lib.makeOverridable ({ colors ? {} }: pkgs.buildNpmPackage {
             pname = "forgejo-github-theme";
             version = "0-unstable-${builtins.substring 0 8 (self.lastModifiedDate or "19700101")}";
 
             src = self;
+            postPatch = ''
+              cp ${pkgs.writeText "warm-vodka-colors.json" (builtins.toJSON (defaultColors // colors))} themes/warmVodka.json
+            '';
             npmDepsHash = "sha256-aFrnwjm2A89naq5++v0i3LOsl9WOHxhMXrIaK9eltMk=";
             # Unused ESLint tooling has peers that exclude TypeScript 7.
             npmFlags = [ "--legacy-peer-deps" ];
@@ -46,7 +50,7 @@
               license = pkgs.lib.licenses.asl20;
               platforms = pkgs.lib.platforms.unix;
             };
-          };
+          }) {};
         in
         {
           default = theme;

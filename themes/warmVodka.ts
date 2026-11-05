@@ -1,15 +1,21 @@
 import { deepOverride, defineTheme } from "@lutinglt/gitea-github-theme/core";
 import { githubDarkColor } from "./github";
+import { rgba } from "../src/functions/color";
+import colors from "./warmVodka.json";
 
-// Visual reference: https://warm.vodka/ — original token overrides, not landing-page CSS.
-const background = "#171416";
-const surface = "#211d1f";
-const border = "#3b3336";
-const muted = "#b4a7aa";
-const foreground = "#f4e8e8";
-const accent = "#ff747e";
-const hover = "#2b2528";
-const selected = "#352d31";
+// Shared defaults for local builds and the Nix package's partial palette overrides.
+const {
+  background0: background,
+  background1: surface,
+  background2: hover,
+  background3: selected,
+  foreground0: foreground,
+  foreground1: muted,
+  accent,
+  "accent-hover": accentHover,
+  "accent-active": accentActive,
+  "box-border-color": border,
+} = colors;
 
 // Keep GitHub's semantic status, ANSI and syntax hues: coral is navigation/interaction,
 // not a replacement for success, warning, failure or added/removed code.
@@ -20,17 +26,17 @@ const warmVodkaColor = deepOverride(githubDarkColor, {
     inset: background,
     emphasis: border,
     disabled: surface,
-    neutral: { muted: "#b4a7aa26", emphasis: border },
-    accent: { muted: "#ff747e1a", emphasis: accent },
+    neutral: { muted: rgba(muted, 0x26 / 0xff), emphasis: border },
+    accent: { muted: rgba(accent, 0x1a / 0xff), emphasis: accent },
   },
   fgColor: { default: foreground, muted, neutral: muted, accent },
   borderColor: {
     default: border,
-    muted: "#3b333699",
+    muted: rgba(border, 0x99 / 0xff),
     emphasis: muted,
-    disabled: "#3b333655",
-    neutral: { muted: "#3b333699", emphasis: border },
-    accent: { muted: "#ff747e66", emphasis: accent },
+    disabled: rgba(border, 0x55 / 0xff),
+    neutral: { muted: rgba(border, 0x99 / 0xff), emphasis: border },
+    accent: { muted: rgba(accent, 0x66 / 0xff), emphasis: accent },
   },
   control: {
     bgColor: { rest: surface, hover, active: selected, disabled: surface, selected },
@@ -48,14 +54,14 @@ const warmVodkaColor = deepOverride(githubDarkColor, {
     default: { bgColor: { rest: surface, hover, active: selected } },
     primary: {
       fgColor: { rest: background },
-      bgColor: { rest: accent, hover: "#ff929a", active: "#f0606c" },
-      borderColor: { rest: accent, hover: "#ff929a" },
+      bgColor: { rest: accent, hover: accentHover, active: accentActive },
+      borderColor: { rest: accent, hover: accentHover },
     },
     invisible: { iconColor: { rest: muted } },
     danger: { bgColor: { rest: surface } },
   },
   themeExtra: { button: { primary: { fgColor: { accent } } } },
-  overlay: { bgColor: surface, borderColor: border, backdrop: { bgColor: `${background}bb` } },
+  overlay: { bgColor: surface, borderColor: border, backdrop: { bgColor: rgba(background, 0xbb / 0xff) } },
   tooltip: { bgColor: surface, fgColor: foreground },
   avatar: { bgColor: surface, borderColor: border },
   counter: { borderColor: "transparent" },

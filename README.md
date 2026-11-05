@@ -101,6 +101,45 @@ then run `prefetch-npm-deps package-lock.json` (available from nixpkgs) and upda
 the printed hash. The build invokes TypeScript, Vite, and assembly through Bun directly, preserving the Bun build
 behavior despite Nix's patched Node shebangs.
 
+#### Override Warm Vodka colours
+
+Like the [landing package](https://github.com/warm-vodka/landing), the theme package accepts a partial `colors`
+attribute set through `.override`:
+
+```nix
+inputs.warm-vodka-forgejo-theme.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+  colors = {
+    background0 = "#101820";
+    accent = "#80cbc4";
+    accent-hover = "#a0dbd5";
+    accent-active = "#65aaa4";
+    box-border-color = "#567890";
+  };
+}
+```
+
+Only supplied colours change. Defaults live in [`themes/warmVodka.json`](themes/warmVodka.json), shared by local
+Bun builds and the Nix package. Keep that file in Git alongside the flake. The shared landing palette names retain
+their meaning here; the two additional accent keys control primary-button states.
+
+| Attribute | Default | Use |
+| --- | --- | --- |
+| `background0` | `#171416` | Page, inset, editor, and primary-button text |
+| `background1` | `#211d1f` | Controls, overlays, tooltips, and secondary surfaces |
+| `background2` | `#2b2528` | Hover surfaces |
+| `background3` | `#352d31` | Active, selected, and editor-selection surfaces |
+| `foreground0` | `#f4e8e8` | Primary text |
+| `foreground1` | `#b4a7aa` | Muted text, placeholders, and icons |
+| `accent` | `#ff747e` | Links, focus, active navigation, and primary buttons |
+| `accent-hover` | `#ff929a` | Primary-button hover background and border |
+| `accent-active` | `#f0606c` | Primary-button active background |
+| `box-border-color` | `#3b3336` | Borders and emphasized surfaces |
+
+Use concrete hex, `rgb()`, or `hsl()` colours, not CSS variables: the theme's colour utilities need to parse them.
+Translucent variants derive from the supplied colours. `accent-hover` and `accent-active` are independent defaults;
+override them too when changing the primary-button colour family. These settings affect only the Warm Vodka theme;
+GitHub's semantic success, warning, danger, ANSI, and syntax hues remain unchanged.
+
 ## Compatibility
 
 This project is a Forgejo-focused fork of [Gitea GitHub Theme](https://github.com/lutinglt/gitea-github-theme). It
