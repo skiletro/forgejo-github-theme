@@ -2,14 +2,14 @@ import { deepOverride, defineTheme } from "@lutinglt/gitea-github-theme/core";
 import { githubDarkColor } from "./github";
 
 // Visual reference: https://warm.vodka/ — original token overrides, not landing-page CSS.
-const background = "#160f11";
-const surface = "#30191e";
-const border = "#85404a";
-const muted = "#bc9b9f";
+const background = "#171416";
+const surface = "#211d1f";
+const border = "#3b3336";
+const muted = "#b4a7aa";
 const foreground = "#f4e8e8";
 const accent = "#ff747e";
-const hover = "#45232b";
-const selected = "#592d36";
+const hover = "#2b2528";
+const selected = "#352d31";
 
 // Keep GitHub's semantic status, ANSI and syntax hues: coral is navigation/interaction,
 // not a replacement for success, warning, failure or added/removed code.
@@ -20,16 +20,16 @@ const warmVodkaColor = deepOverride(githubDarkColor, {
     inset: background,
     emphasis: border,
     disabled: surface,
-    neutral: { muted: "#bc9b9f26", emphasis: border },
+    neutral: { muted: "#b4a7aa26", emphasis: border },
     accent: { muted: "#ff747e1a", emphasis: accent },
   },
   fgColor: { default: foreground, muted, neutral: muted, accent },
   borderColor: {
     default: border,
-    muted: "#85404a99",
+    muted: "#3b333699",
     emphasis: muted,
-    disabled: "#85404a55",
-    neutral: { muted: "#85404a99", emphasis: border },
+    disabled: "#3b333655",
+    neutral: { muted: "#3b333699", emphasis: border },
     accent: { muted: "#ff747e66", emphasis: accent },
   },
   control: {
@@ -55,7 +55,7 @@ const warmVodkaColor = deepOverride(githubDarkColor, {
     danger: { bgColor: { rest: surface } },
   },
   themeExtra: { button: { primary: { fgColor: { accent } } } },
-  overlay: { bgColor: surface, borderColor: border, backdrop: { bgColor: "#160f11bb" } },
+  overlay: { bgColor: surface, borderColor: border, backdrop: { bgColor: `${background}bb` } },
   tooltip: { bgColor: surface, fgColor: foreground },
   avatar: { bgColor: surface, borderColor: border },
   counter: { borderColor: "transparent" },

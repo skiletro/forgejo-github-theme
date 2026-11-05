@@ -16,11 +16,15 @@ A Forgejo theme that pursues GitHub style not only in colors but also in styling
 
 ## warm.vodka dark variant
 
-The custom **Warm Vodka** variant brings warm near-black surfaces, muted text, coral accents, and system monospace fonts
-to the existing Forgejo GitHub layouts. It is dark-only: `theme-github-warm-vodka-dark.css`, selected as
-`github-warm-vodka-dark`. There is no warm.vodka light or automatic variant. Semantic status and diff colors remain
-distinct so success, warnings, failures, additions, and deletions retain their meaning. Forgejo brand marks are tinted
-off-white; repository and user avatars keep their original colors.
+The custom **Warm Vodka** variant brings warm near-black surfaces, quiet neutral borders, muted text, coral accents, and
+system monospace fonts to the existing Forgejo GitHub layouts. It is dark-only: `theme-github-warm-vodka-dark.css`,
+selected as `github-warm-vodka-dark`. There is no warm.vodka light or automatic variant. Semantic status and diff colors
+remain distinct so success, warnings, failures, additions, and deletions retain their meaning. Forgejo brand marks are
+tinted off-white; repository and user avatars keep their original colors.
+
+Raised surfaces and secondary hover states stay warm-neutral, leaving coral for primary actions, links, active-tab
+underlines, and keyboard focus. Square controls and panels retain the terminal-like character without changing the
+shared spacing or responsive layouts.
 
 File-finder prompts size from the active font rather than fixed pixel widths. Repository search and combined query/mode
 controls wrap when space is constrained, keeping their static labels readable with the monospace stack.

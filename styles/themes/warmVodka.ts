@@ -6,8 +6,8 @@ export default css`
     --fonts-monospace: "SFMono-Regular", Consolas, "Liberation Mono", monospace, var(--fonts-emoji);
     --fonts-proportional: var(--fonts-monospace);
     --border-radius: 0;
-    --color-selection-bg: #ff747e;
-    --color-selection-fg: #160f11;
+    --color-selection-bg: var(--color-primary);
+    --color-selection-fg: var(--color-body);
   }
 
   /* Tint only Forgejo's brand marks; repository, organization and user avatars keep their colors. */
@@ -60,18 +60,6 @@ export default css`
 
   a:hover {
     text-decoration-color: var(--github-fgColor-accent);
-  }
-
-  .theme-control:not(.primary):not(.danger):not(.disabled):not(:disabled):not([aria-disabled="true"]):hover,
-  .ui.button:not(.primary):not(.red):not(.green):not(.disabled):not(:disabled):hover {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-body);
-  }
-
-  .theme-control:not(.primary):not(.danger):not(.disabled):not(:disabled):not([aria-disabled="true"]):hover > svg,
-  .ui.button:not(.primary):not(.red):not(.green):not(.disabled):not(:disabled):hover svg {
-    color: inherit;
   }
 
   /* These floating surfaces use fixed radii in the shared component styles. */
